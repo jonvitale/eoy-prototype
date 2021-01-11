@@ -1,0 +1,22 @@
+import QdtComponents from 'qdt-components'
+
+const host = 'dashboards.philasd.org' // window.location.hostname
+
+const config = {
+  host,
+  prefix: '',
+  port: host === 'localhost' ? 4848 : 443, // window.location.port,
+  secure: host === 'localhost' ? window.location.protocol === 'https:' : true,
+  appId: '5c250b02-5c11-4910-977a-d2bb1fadffc7',
+}
+const connections = {
+  vizApi: true,
+  engineApi: true,
+}
+const qdtComponents = new QdtComponents(config, connections)
+
+console.log('opening port', config.port)
+
+export default ({ app }, inject) => {
+  inject('qdt', qdtComponents)
+}
