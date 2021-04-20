@@ -1,8 +1,8 @@
 import { resolve, join } from 'path'
 
-const isTesting = false
+const isTesting = true
 
-const appName = isTesting ? 'eoy-prototype-test' : 'eoy-prototype'
+const appName = isTesting ? 'eoy-prototype-test2' : 'eoy-prototype'
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)

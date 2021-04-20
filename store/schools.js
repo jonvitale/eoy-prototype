@@ -34,6 +34,30 @@ export const mutations = {
   add(state, data) {
     state.list.push(data)
   },
+  join(state, data) {
+    // do something
+    if (data.schoolReportKey) {
+      // first create an order of indices to match between datasets
+      const order = []
+      state.list.schoolReportKey.forEach(({ text: key }) => {
+        // find this key value in the new data
+        const index = data.schoolReportKey.map(({ text }) => text).indexOf(key)
+        order.push(index >= 0 ? index : null)
+      })
+      // loop through all fields on data creating an ordered array
+      // to match data
+      Object.keys(data).forEach((key) => {
+        if (key !== 'schoolReportKey') {
+          const orderedArray = order.map((fromIndex) =>
+            fromIndex >= 0 ? data[key][fromIndex] : null
+          )
+          state.list[key] = orderedArray
+        }
+      })
+    } else {
+      throw new Error('schoolReportKey must be on joining dataset')
+    }
+  },
   replace(state, data) {
     state.list = data
   },
@@ -46,6 +70,10 @@ export const actions = {
   set_schools({ commit }, values) {
     commit('replace', values)
     commit('initialized', true)
+  },
+  // To join schools(reports) must have schoolReportKey
+  join_schools({ commit }, values) {
+    commit('join', values)
   },
 
   lookup_slugreport_by_schoolreport({ state }, schoolReport) {

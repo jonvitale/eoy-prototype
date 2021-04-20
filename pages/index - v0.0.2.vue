@@ -113,45 +113,33 @@
               </div>
               <div class="b-cmetric-table__value">{{ score('ENR') }}</div>
             </div>
-            <div>
+          </div>
+          <div class="b-sep" />
+          <div class="b-cmetric">
+            <div class="flex">
               <QdtComponent
                 type="QdtViz"
                 no-buttons
                 :props="{
-                  id: 'pwUtq',
+                  id: 'JRfps',
                   type: 'barchart',
-                  height: '80px',
+                  height: '210px',
                 }"
+                class="w-1/2"
               />
               <QdtComponent
                 type="QdtViz"
                 no-buttons
                 :props="{
-                  id: 'FqkXRDx',
-                  type: 'extension',
-                  height: '3rem',
+                  id: 'JGcDeX',
+                  type: 'barchart',
+                  height: '210px',
                 }"
+                class="w-1/2"
               />
-            </div>
-            <div class="flex justify-start">
-              <div class="b-cmetric-table__row-label w-1/2">
-                % Economically Disadvantaged
-              </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_ECDIS') }}</div>
-            </div>
-            <div class="flex justify-start">
-              <div class="b-cmetric-table__row-label w-1/2">
-                % English Learners
-              </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_EL') }}</div>
-            </div>
-            <div class="flex justify-start">
-              <div class="b-cmetric-table__row-label w-1/2">
-                % in Special Education Program
-              </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_SPED') }}</div>
             </div>
           </div>
+          <div class="b-sep" />
           <div class="b-cmetric-table">
             <div class="b-cmetric-table__title">Teachers</div>
             <div class="flex justify-start">
@@ -173,33 +161,19 @@
           </div>
           <div class="b-sep" />
           <div class="b-overall mb-2">
-            <div class="flex justify-start items-center">
-              <div class="flex justify-start items-center w-1/2">
-                <div class="b-overall__title">Overall Rating:</div>
-                <div class="b-overall__title--tier">
-                  <span :class="[`color-${overallTier.toLowerCase()}`]">
-                    {{ overallTier }}
-                  </span>
-                  <span class="color-high"> {{ overallImprovingText }}</span>
-                </div>
-              </div>
-              <div class="flex justify-start items-center">
-                <div class="b-overall__title">Equity:</div>
-                <div class="b-overall__title--tier">
-                  <span
-                    :class="[`color-${overallEquitableTier.toLowerCase()}`]"
-                  >
-                    {{ overallEquitableTier }}
-                  </span>
-                  <span class="color-high">
-                    {{ overallImprovingEquitableText }}
-                  </span>
-                </div>
+            <div class="flex justify-start">
+              <div class="b-overall__title">Overall Rating:</div>
+              <div
+                class="b-overall__title--tier pl-4"
+                :class="[`color-${overallTier.toLowerCase()}`]"
+              >
+                {{ overallTier }} {{ overallImprovingText }}
+                {{ overallEquitableText }}
               </div>
             </div>
             <div class="pl-4">
               <div class="flex justify-start items-center">
-                <div class="b-overall__row-label">Overall Performance</div>
+                <div class="b-overall__row-label">Overall Performance:</div>
                 <div class="b-overall__value">
                   At or Above Target for
                   <span class="b-overall__value--numeric"
@@ -216,7 +190,7 @@
               </div>
               <div class="flex justify-start items-center">
                 <div class="b-overall__row-label">
-                  Year-Over-Year Performance
+                  Year-Over-Year Performance:
                 </div>
                 <div class="b-overall__value">
                   Improving for
@@ -234,77 +208,103 @@
               </div>
               <div class="flex justify-start items-center">
                 <div class="b-overall__row-label">
-                  Historically Underserved Student Performance
-                </div>
-                <div class="b-overall__value">
-                  At or Above Target for
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEquitable }}
-                  </span>
-                  of
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEligibleEquitable }}
-                  </span>
-                  (<span class="b-overall__value--numeric"
-                    >{{ overallPctEquitable }} </span
-                  >)
-                </div>
-              </div>
-              <div class="flex justify-start items-start">
-                <div class="b-overall__row-label">
-                  Historically Underserved Student Improvement
+                  Student Group Performance:
                 </div>
                 <div class="b-overall__value">
                   Improving for
                   <span class="b-overall__value--numeric"
-                    >{{ overallCountImprovingEquitable }}
+                    >{{ overallCountImprovingEquity }}
                   </span>
                   of
                   <span class="b-overall__value--numeric"
-                    >{{ overallCountEligibleImprovingEquitable }}
+                    >{{ overallCountEligibleImprovingEquity }}
                   </span>
                   (<span class="b-overall__value--numeric"
-                    >{{ overallPctImprovingEquitable }} </span
+                    >{{ overallPctImprovingEquity }} </span
                   >)
                 </div>
               </div>
             </div>
-            <div class="b-cmetric-title">Performance by Metric</div>
-            <div class="w-full flex flex-wrap">
-              <div
-                v-for="metric in coverMetrics"
-                :key="metric.id"
-                class="b-cmetric w-1/2 flex flex-col justify-between"
-              >
-                <div class="b-cmetric__label">
-                  {{ metric.label || metricLabel(metric.id) }}
-                </div>
-                <div class="flex">
-                  <div
-                    class="w-1/2 flex flex-col justify-around"
-                    :class="['color-tier-' + tier(metric.id, 'number')]"
-                  >
-                    <div class="b-cmetric__score h-1/2">
-                      {{ score(metric.id) }}
-                    </div>
-                    <div class="b-cmetric__tier h-1/2">
-                      ({{ tier(metric.id) }})
-                    </div>
-                  </div>
-                  <div class="w-1/2 flex flex-col justify-around">
-                    <div class="b-cmetric__other h-1/2">
-                      {{ yoy(metric.id) }} from {{ $store.getters.sy_p }}
-                    </div>
-                    <div class="b-cmetric__other h-1/2">
-                      {{ distance(metric.id) }}
-                      from target
-                    </div>
-                  </div>
-                </div>
+          </div>
+          <div class="b-sep" />
+          <div class="b-rollup mb-2">
+            <div class="flex justify-between">
+              <div class="b-rollup__title">Percent of Metrics At Target</div>
+              <div style="width: 500px" class="flex justify-around">
+                <span> {{ $store.getters.sy_p2 }} </span>
+                <span> {{ $store.getters.sy_p }} </span>
+                <span> {{ $store.getters.sy_c }} </span>
               </div>
             </div>
+            <div class="flex justify-between items-center">
+              <div class="b-rollup__row-label">Overall</div>
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'pUvdwc',
+                  type: 'linechart',
+                  width: '500px',
+                  height: '100px',
+                }"
+              />
+            </div>
+            <div v-if="!isHS" class="flex justify-between items-center">
+              <div class="b-rollup__row-label">Reading/ELA</div>
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'akadPkX',
+                  type: 'linechart',
+                  width: '500px',
+                  height: '100px',
+                }"
+              />
+            </div>
+            <div v-if="!isHS" class="flex justify-between items-center">
+              <div class="b-rollup__row-label">Math/Science</div>
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'eCaEU',
+                  type: 'linechart',
+                  width: '500px',
+                  height: '100px',
+                }"
+              />
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="b-rollup__row-label">
+                Climate, Culture & Opportunity
+              </div>
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'fyvQY',
+                  type: 'linechart',
+                  width: '500px',
+                  height: '100px',
+                }"
+              />
+            </div>
+            <div v-if="isHS" class="flex justify-between items-center">
+              <div class="b-rollup__row-label">College & Career</div>
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'CQqNCd',
+                  type: 'linechart',
+                  width: '500px',
+                  height: '100px',
+                }"
+              />
+            </div>
           </div>
-          <!-- <div class="b-sep" />
+          <div class="b-sep" />
           <div class="b-cmetric">
             <div v-if="!isHS">
               <div class="b-cmetric-title">
@@ -353,15 +353,72 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="mt-2 b-sep b-sep--text-inside flex justify-start">
             <span class="mx-4">Metric Tier Color Key:</span>
             <div class="flex justify-start w-2/3">
-              <span class="color-tier-4 mx-2"> Above Target </span>
-              <span class="color-tier-3 mx-2"> At Target </span>
-              <span class="color-tier-2 mx-2"> Approaching Target </span>
               <span class="color-tier-1 mx-2"> Not Meeting Target </span>
+              <span class="color-tier-2 mx-2"> Approaching Target </span>
+              <span class="color-tier-3 mx-2"> At Target </span>
+              <span class="color-tier-4 mx-2"> Above Target </span>
             </div>
+          </div>
+        </div>
+        <div class="page">
+          <div class="b-sep" />
+          <div class="b-cmetric-table">
+            <div class="b-cmetric-table__title">
+              Performance Against Guardrail Indicators
+            </div>
+            <div class="b-cmetric-table__subtitle">
+              Guardrails are conditions the District must ensure in order for
+              the District goals to be met.
+            </div>
+            <div class="flex">
+              <div class="w-2/3">&nbsp;</div>
+              <div class="w-1/3 flex">
+                <div class="w-1/2 b-cmetric-table__header">Score</div>
+                <div class="w-1/2 b-cmetric-table__header">
+                  Change from Prior Year
+                </div>
+              </div>
+            </div>
+            <div v-for="(guardrail, grIndex) in coverGuardrails" :key="grIndex">
+              <div
+                class="b-cmetric-table__row-label b-cmetric-table__row-label--highlight"
+              >
+                {{ guardrail.title }}
+              </div>
+              <div
+                v-for="(metric, mIndex) in guardrail.metrics"
+                :key="mIndex"
+                class="flex"
+              >
+                <div
+                  class="b-cmetric-table__row-label b-cmetric-table__row-label--grouped w-2/3"
+                >
+                  {{ metric.label }}
+                </div>
+                <div class="w-1/3 flex">
+                  <div class="w-1/2 b-cmetric-table__value">
+                    <span v-if="!metric.isBoolean">
+                      {{ score(metric.id) }}
+                    </span>
+                    <div v-else class="b-cmetric-table__value--icon">
+                      <unicon
+                        v-if="score(metric.id, 'number')"
+                        name="check-square"
+                      />
+                      <unicon v-else name="square-full" />
+                    </div>
+                  </div>
+                  <div class="w-1/2 b-cmetric-table__value">
+                    {{ !metric.isBoolean ? yoy(metric.id) : '' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="b-sep" />
           </div>
         </div>
       </div>
@@ -416,14 +473,14 @@
                         Minimum Score for Tier
                       </div>
                       <div
-                        v-if="isFinite(aboveTarget(metric.id, 'number'))"
+                        v-if="isFinite(approaching(metric.id, 'number'))"
                         class="w-full flex justify-between"
                       >
-                        <div class="b-metric-targets__label color-tier-4">
-                          Above Target
+                        <div class="b-metric-targets__label color-tier-2">
+                          Approaching Target
                         </div>
                         <div class="b-metric-targets__value">
-                          {{ aboveTarget(metric.id) }}
+                          {{ approaching(metric.id) }}
                         </div>
                       </div>
                       <div class="w-full flex justify-between">
@@ -435,23 +492,23 @@
                         </div>
                       </div>
                       <div
-                        v-if="isFinite(approaching(metric.id, 'number'))"
+                        v-if="isFinite(aboveTarget(metric.id, 'number'))"
                         class="w-full flex justify-between"
                       >
-                        <div class="b-metric-targets__label color-tier-2">
-                          Approaching Target
+                        <div class="b-metric-targets__label color-tier-4">
+                          Above Target
                         </div>
                         <div class="b-metric-targets__value">
-                          {{ approaching(metric.id) }}
+                          {{ aboveTarget(metric.id) }}
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div>
+                  <div class="ml-12">
                     <table class="table-fixed b-metric-table">
                       <thead>
                         <tr class="b-metric-table__header">
-                          <th class="b-metric-table__row-label">&nbsp;</th>
+                          <th class="w-48">&nbsp;</th>
                           <th>Score</th>
                           <th>Change from Prior Year</th>
                           <th>Distance from Target</th>
@@ -465,11 +522,10 @@
                         >
                           <td
                             class="b-metric-table__row-label"
-                            :class="
-                              group.key === 'all'
-                                ? 'b-metric-table__row-label--highlight'
-                                : 'b-metric-table__row-label--subgroup'
-                            "
+                            :class="{
+                              'b-metric-table__row-label--highlight':
+                                group.key === 'all',
+                            }"
                           >
                             {{ group.label }}
                           </td>
@@ -498,13 +554,7 @@
                                 group.key === 'all',
                             }"
                           >
-                            {{
-                              !isInformational(
-                                getMetricIdByGroup(metric, group)
-                              )
-                                ? distance(getMetricIdByGroup(metric, group))
-                                : ''
-                            }}
+                            {{ distance(getMetricIdByGroup(metric, group)) }}
                           </td>
                           <td
                             class="b-metric-table__value b-metric-table__value--tier"
@@ -516,13 +566,7 @@
                                 ),
                             ]"
                           >
-                            {{
-                              !isInformational(
-                                getMetricIdByGroup(metric, group)
-                              )
-                                ? tier(getMetricIdByGroup(metric, group))
-                                : ''
-                            }}
+                            {{ tier(getMetricIdByGroup(metric, group)) }}
                           </td>
                         </tr>
                       </tbody>
@@ -535,11 +579,9 @@
                 <div v-else>
                   <table class="table-fixed b-smetric-table">
                     <!-- only put a table head if this is not the first informational metric in a row -->
-                    <thead v-if="mIndex === 0 || metric.showHeader">
+                    <thead v-if="mIndex === 0">
                       <tr>
-                        <th class="b-smetric-table__header-label w-48">
-                          &nbsp;
-                        </th>
+                        <th class="b-smetric-table__header-label">&nbsp;</th>
                         <th class="b-smetric-table__header-value">
                           {{
                             metric.parallel_metrics
@@ -671,15 +713,11 @@
 </template>
 
 <script>
-/**
- * TODO: pull gray boxes out to the left, indent breakouts
- * try stacked bar for ethnicity
- */
 import QdtComponent from '~sdp-components/Qdt/QdtComponent'
+import schoolReportMetricDef from '~/definitions/schoolReportMetrics'
 import ScrollSpyNav from '~sdp-components/Navigation/ScrollSpyNav'
 import SelectionsMixin from '~/mixins/SelectionsMixin'
 import ButtonGroup from '~sdp-components/PageElements/ButtonGroup'
-import schoolReportMetricDef from '~/definitions/schoolReportMetrics'
 
 export default {
   name: 'SchoolReport',
@@ -848,67 +886,32 @@ export default {
       ).text
     },
 
-    overallPctEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Equity Metrics At Target (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallEquitableTier() {
-      const val = this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Equity Metrics At Target (Current)',
-        this.schoolReportKey
-      ).number
-      if (Math.round(val * 100) > 80) {
-        return 'High'
-      } else if (Math.round(val * 100) >= 50) {
-        return 'Medium'
-      } else if (val >= 0) {
-        return 'Low'
-      } else {
-        return 'N/A'
-      }
-    },
-    overallCountEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics At Target (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallCountEligibleEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics Eligible (Current)',
-        this.schoolReportKey
-      ).text
-    },
-
-    overallPctImprovingEquitable() {
+    overallPctImprovingEquity() {
       return this.$store.getters['schools/getFieldBySchoolReportKey'](
         '% Equity Metrics Improving (Current)',
         this.schoolReportKey
       ).text
     },
-    overallImprovingEquitableText() {
+    overallEquitableText() {
       const val = this.$store.getters['schools/getFieldBySchoolReportKey'](
         '% Equity Metrics Improving (Current)',
         this.schoolReportKey
       ).number
-      if (Math.round(val * 100) > 50) {
-        return '+ Improving Equity'
+      if (val > 0.5) {
+        return '+ Equitable'
       } else {
         return ''
       }
     },
-
-    overallCountImprovingEquitable() {
+    overallCountImprovingEquity() {
       return this.$store.getters['schools/getFieldBySchoolReportKey'](
         '# Equity Metrics Improving (Current)',
         this.schoolReportKey
       ).text
     },
-    overallCountEligibleImprovingEquitable() {
+    overallCountEligibleImprovingEquity() {
       return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics Improving Eligible (Current)',
+        '# Equity Metrics Eligible (Current)',
         this.schoolReportKey
       ).text
     },
@@ -931,67 +934,95 @@ export default {
         { key: 'EL', label: 'English Learner' },
       ]
     },
-    coverMetrics() {
-      return this.isHS
-        ? [
-            {
-              id: 'KEYSTONE_PROF',
-              label: 'Keystone Proficiency (all 3 tests)',
-            },
-            { id: 'KEYSTONE_ELA_AGI', label: 'Keystone ELA Growth' },
-            { id: 'KEYSTONE_ALG_AGI', label: 'Keystone Algebra Growth' },
-            { id: 'KEYSTONE_BIO_AGI', label: 'Keystone Bio Growth' },
-            { id: 'GRAD_COHORT4', label: 'Graduated on Time' },
-            { id: 'NOCTI_MET', label: 'NOCTI' },
-            { id: 'GROWTH_MET_EL', label: 'English Learner Growth' },
-            { id: 'ATTENDANCE_90', label: '90% Attendance' },
-            { id: 'OSS', label: 'Zero Suspensions' },
-            { id: 'CLIMATE_SCORE', label: 'Climate Suvey' },
-            { id: 'INSTRUCTION_SCORE', label: 'Instruction Survey' },
-            {
-              id: 'RELATIONSHIP_SCORE',
-              label: 'Parent School Relationship Survey',
-            },
-          ]
-        : [
-            { id: 'PSSA_ELA_PROF', label: 'PSSA ELA Proficiency (Grades 3-8)' },
-            {
-              id: 'PSSA_ELA_PROF_GRADE3',
-              label: 'PSSA ELA Proficiency (Grade 3)',
-            },
-            { id: 'PSSA_ELA_AGI', label: 'PSSA ELA Growth' },
-            { id: 'PSSA_MATH_PROF', label: 'PSSA Math Proficiency' },
-            { id: 'PSSA_MATH_AGI', label: 'PSSA Math Growth' },
-            { id: 'GROWTH_MET_EL', label: 'English Learner Growth' },
-            { id: 'ATTENDANCE_90', label: '90% Attendance' },
-            { id: 'OSS', label: 'Zero Suspensions' },
-            { id: 'CLIMATE_SCORE', label: 'Climate Suvey' },
-            { id: 'INSTRUCTION_SCORE', label: 'Instruction Survey' },
-            {
-              id: 'RELATIONSHIP_SCORE',
-              label: 'Parent School Relationship Survey',
-            },
-          ]
+    coverBulletMetrics() {
+      return [
+        {
+          id: 'PSSA_ELA_PROF',
+          label: 'PSSA ELA: % of Students Proficient or Advanced, Grades 3-8',
+          bulletChartId: 'VdzxMm',
+        },
+        {
+          id: 'PSSA_ELA_PROF_GRADE3',
+          label: 'PSSA ELA: % of Students Proficient or Advanced, Grade 3',
+          bulletChartId: 'StEhCqp',
+        },
+        {
+          id: 'PSSA_MATH_PROF',
+          label: 'PSSA Math: % of Students Proficient or Advanced, Grades 3-8',
+          bulletChartId: 'ZTfBeS',
+        },
+      ]
     },
-    // coverBulletMetrics() {
-    //   return [
-    //     {
-    //       id: 'PSSA_ELA_PROF',
-    //       label: 'PSSA ELA: % of Students Proficient or Advanced, Grades 3-8',
-    //       bulletChartId: 'VdzxMm',
-    //     },
-    //     {
-    //       id: 'PSSA_ELA_PROF_GRADE3',
-    //       label: 'PSSA ELA: % of Students Proficient or Advanced, Grade 3',
-    //       bulletChartId: 'StEhCqp',
-    //     },
-    //     {
-    //       id: 'PSSA_MATH_PROF',
-    //       label: 'PSSA Math: % of Students Proficient or Advanced, Grades 3-8',
-    //       bulletChartId: 'ZTfBeS',
-    //     },
-    //   ]
-    // },
+    coverGuardrails() {
+      return [
+        {
+          title: 'Guardrail 1: Welcoming & Supportive Schools',
+          metrics: [
+            {
+              id: 'CLIMATE_SCORE',
+              label: 'School Climate Score',
+            },
+            {
+              id: 'INSTRUCTION_SCORE',
+              label: 'School Instruction Score',
+            },
+            {
+              id: 'LEAD_SAFE',
+              isBoolean: true,
+              label: 'Lead Safe',
+            },
+            {
+              id: 'ASBESTOS_SAFE',
+              isBoolean: true,
+              label: 'Asbestos Safe',
+            },
+            {
+              id: 'FTE_BEHAVIORALSUPPORTS_SUFFICIENT_YN',
+              isBoolean: true,
+              label: 'At Least 2 Behavioral/Mental Supports Per 500 Students',
+            },
+          ],
+        },
+        {
+          title: 'Guardrail 2: Enriching & Well-Rounded School Experiences',
+          metrics: [
+            {
+              id: 'ARTS_PARTICIPATION',
+              label: '% of Students Enrolled in Visual/Performing Arts',
+            },
+          ],
+        },
+        {
+          title: 'Guardrail 3: Partnering with Parents & Family Members',
+          metrics: [
+            {
+              id: 'RELATIONSHIP_SCORE',
+              label: 'School Relationship Score',
+            },
+            {
+              id: 'SAC_MEETS_REGULARLY_YN',
+              isBoolean: true,
+              label: 'SAC Meets at Least 3 Times Per Year',
+            },
+          ],
+        },
+        {
+          title: 'Guardrail 4: Addressing Racist Practices',
+          metrics: [
+            {
+              id: 'SPECIAL_ADMIT_QUAL',
+              label:
+                '% of Black/African American and Hispanic/Latinx Students Qualified to Attend Special Admission High Schools',
+            },
+            {
+              id: 'SUSPENSIONS_MINORITY',
+              label:
+                '% of Suspensions Received by Black/African American Students',
+            },
+          ],
+        },
+      ]
+    },
     /**
      * The domain facts list the goals (split into pages) associated with each domain and provides the information
      * needed to display associated metrics and visualizations
@@ -1018,7 +1049,6 @@ export default {
                   },
                   {
                     id: 'WITHIN_ELA_MET_38',
-                    showHeader: true,
                   },
                   {
                     id: 'WITHIN_ELA_PARTICIPATION_38',
@@ -1039,7 +1069,6 @@ export default {
                   },
                   {
                     id: 'WITHIN_ELA_MET_K3',
-                    showHeader: true,
                   },
                   {
                     id: 'WITHIN_ELA_PARTICIPATION_K3',
@@ -1092,7 +1121,6 @@ export default {
                     id: this.isHS
                       ? 'WITHIN_MATH_MET_911'
                       : 'WITHIN_MATH_MET_38',
-                    showHeader: true,
                   },
                   {
                     id: this.isHS
@@ -1207,7 +1235,6 @@ export default {
                   },
                   {
                     id: 'SAC_MEETS_REGULARLY_YN',
-                    showHeader: true,
                     submetrics: [
                       {
                         id: 'SAC_EXISTS',
@@ -1482,13 +1509,13 @@ export default {
     // will write to console all values for metric
     debugMetric(metricId) {
       const index = this.metricIndex(metricId)
-      // console.log('debug', metricId, index)
+      console.log('debug', metricId, index)
       if (index >= 0) {
         const obj = {}
         Object.keys(this.schoolReportValues).forEach((key) => {
           obj[key] = this.schoolReportValues[key][index].text
         })
-        // console.log(obj)
+        console.log(obj)
         return obj
       } else {
         return null
@@ -1703,7 +1730,7 @@ b-cmetric is a metric row with the bulletchart
 .b-overall__title {
   font-size: 12pt;
   font-weight: bold;
-  margin-right: 1rem;
+  width: 16rem;
 }
 .b-overall__title--tier {
   font-size: 16pt;
@@ -1711,7 +1738,7 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-overall__row-label {
   font-size: 12pt;
-  width: 50%;
+  width: 16rem;
 }
 .b-overall__value {
   font-size: 14pt;
@@ -1720,7 +1747,7 @@ b-cmetric is a metric row with the bulletchart
   font-weight: bold;
 }
 
-/* .b-rollup {
+.b-rollup {
   color: black;
   font-size: 10pt;
 }
@@ -1732,7 +1759,7 @@ b-cmetric is a metric row with the bulletchart
 .b-rollup__row-label {
   font-size: 12pt;
   font-weight: bold;
-} */
+}
 
 .b-cmetric-title {
   font-size: 12pt;
@@ -1746,29 +1773,7 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-cmetric {
   color: black;
-  background-color: #f0f0f0;
-  padding: 0.5rem;
-  border: white solid 0.25rem;
 }
-.b-cmetric__label {
-  width: 100%;
-  font-size: 12pt;
-  font-weight: bold;
-  text-align: center;
-}
-.b-cmetric__score {
-  text-align: center;
-  font-weight: semibold;
-}
-.b-cmetric__tier {
-  text-align: center;
-  font-weight: bold;
-  /* border: gray solid 2px; */
-}
-.b-cmetric__other {
-  font-size: 10pt;
-}
-/* 
 .b-cmetric__label {
   width: 100%;
   font-size: 12pt;
@@ -1784,7 +1789,7 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-cmetric__value--highlight {
   font-weight: bold;
-} */
+}
 
 /* simple display and guardrail table */
 .b-cmetric-table {
@@ -1878,15 +1883,11 @@ b-cmetric is a metric row with the bulletchart
   font-size: 10pt;
   padding-left: 1rem;
   border-top: white solid 1px;
-  width: 15rem;
 }
 .b-metric-table__row-label--highlight {
   font-weight: bold;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-.b-metric-table__row-label--subgroup {
-  padding-left: 1.5rem;
 }
 .b-metric-table__value {
   text-align: center;
@@ -1923,7 +1924,6 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-smetric-table__row-label {
   width: 15rem;
-  padding-left: 1rem;
   padding-right: 0.5rem;
   padding-bottom: 0.5rem;
   border-top: #cccccc solid 0.5px;

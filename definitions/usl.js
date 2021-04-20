@@ -4,7 +4,7 @@ export default {
     qDimensions: [
       {
         qDef: {
-          qFieldDefs: ['key_school_report'],
+          qFieldDefs: ['SchoolReportKey'],
           qFieldLabels: ['schoolReportKey'],
           qSortCriterias: [{ qSortByLoadOrder: 0, qSortByAscii: 1 }],
         },
@@ -28,7 +28,7 @@ export default {
       // },
       {
         qDef: {
-          qFieldDefs: ['ulcs'],
+          qFieldDefs: ['ulcscode'],
           qFieldLabels: ['ulcs'],
         },
         qNullSuppression: true,

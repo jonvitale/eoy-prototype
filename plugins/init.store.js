@@ -2,6 +2,7 @@
 // in a project plugin. Look for qdt.config.js
 
 import uslDef from '~/definitions/usl'
+import schoolMetricsDef from '~/definitions/school-metrics'
 import yearDef from '~/definitions/year'
 
 // console.log("init.store.js", Vue.prototype, Vue.prototype.$qdt, Vue.prototype.$qlik)
@@ -16,6 +17,19 @@ export default async ({ app, store }) => {
     )
   }
   await store.dispatch('schools/set_schools', values)
+  await app.$qlik.destroySessionObject(sessionObject)
+
+  // get all overall scores for schools
+  sessionObject = await app.$qlik.generateHypercubeObjectFromDef(
+    schoolMetricsDef
+  )
+  values = await app.$qlik.getValuesFromHypercubeObject(sessionObject)
+  if (values[Object.keys(values)[0]].length < 1) {
+    throw new Error(
+      'School Metrics is not returning any values, make sure to check definitions. < 10,000 cells'
+    )
+  }
+  await store.dispatch('schools/join_schools', values)
   await app.$qlik.destroySessionObject(sessionObject)
 
   // get all school years

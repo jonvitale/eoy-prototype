@@ -9,7 +9,7 @@
         title="Sections"
         :refs="
           isHS
-            ? ['cover', 'cc', 'climate']
+            ? ['cover', 'climate', 'cc']
             : ['cover', 'ela', 'math', 'climate']
         "
         :target="thisComponent"
@@ -17,8 +17,8 @@
       />
       <button-group
         :options="[
-          { value: '7400|K8', label: 'K-8' },
-          { value: '8090|HS', label: 'HS' },
+          { value: '1111|K8', label: 'K-8' },
+          { value: '1111|HS', label: 'HS' },
         ]"
         :selected-value="schoolReportKey"
         label="Select report type:"
@@ -105,53 +105,41 @@
               <div class="b-cmetric-table__row-label w-1/2">
                 # of Students Enrolled on October 1
               </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_OCT1') }}</div>
+              <div class="b-cmetric-table__value">{{ score('enr_oct1') }}</div>
             </div>
             <div class="flex justify-start">
               <div class="b-cmetric-table__row-label w-1/2">
                 Total # of Students Served for 10+ Days Over the Year
               </div>
-              <div class="b-cmetric-table__value">{{ score('ENR') }}</div>
-            </div>
-            <div>
-              <QdtComponent
-                type="QdtViz"
-                no-buttons
-                :props="{
-                  id: 'pwUtq',
-                  type: 'barchart',
-                  height: '80px',
-                }"
-              />
-              <QdtComponent
-                type="QdtViz"
-                no-buttons
-                :props="{
-                  id: 'FqkXRDx',
-                  type: 'extension',
-                  height: '3rem',
-                }"
-              />
-            </div>
-            <div class="flex justify-start">
-              <div class="b-cmetric-table__row-label w-1/2">
-                % Economically Disadvantaged
-              </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_ECDIS') }}</div>
-            </div>
-            <div class="flex justify-start">
-              <div class="b-cmetric-table__row-label w-1/2">
-                % English Learners
-              </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_EL') }}</div>
-            </div>
-            <div class="flex justify-start">
-              <div class="b-cmetric-table__row-label w-1/2">
-                % in Special Education Program
-              </div>
-              <div class="b-cmetric-table__value">{{ score('ENR_SPED') }}</div>
+              <div class="b-cmetric-table__value">{{ score('enr') }}</div>
             </div>
           </div>
+          <div class="b-sep" />
+          <div class="b-metric">
+            <div class="flex">
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'JRfps',
+                  type: 'barchart',
+                  height: '210px',
+                }"
+                class="w-1/2"
+              />
+              <QdtComponent
+                type="QdtViz"
+                no-buttons
+                :props="{
+                  id: 'JGcDeX',
+                  type: 'barchart',
+                  height: '210px',
+                }"
+                class="w-1/2"
+              />
+            </div>
+          </div>
+          <div class="b-sep" />
           <div class="b-cmetric-table">
             <div class="b-cmetric-table__title">Teachers</div>
             <div class="flex justify-start">
@@ -159,7 +147,7 @@
                 Teachers Rated as Distinguished
               </div>
               <div class="b-cmetric-table__value">
-                {{ score('TEACHERS_DISTINGUISHED') }}
+                {{ score('teachers_distinguished') }}
               </div>
             </div>
             <div class="flex justify-start">
@@ -167,145 +155,12 @@
                 Teachers Rated as Proficient
               </div>
               <div class="b-cmetric-table__value">
-                {{ score('TEACHERS_PROFICIENT') }}
+                {{ score('teachers_proficient') }}
               </div>
             </div>
           </div>
           <div class="b-sep" />
-          <div class="b-overall mb-2">
-            <div class="flex justify-start items-center">
-              <div class="flex justify-start items-center w-1/2">
-                <div class="b-overall__title">Overall Rating:</div>
-                <div class="b-overall__title--tier">
-                  <span :class="[`color-${overallTier.toLowerCase()}`]">
-                    {{ overallTier }}
-                  </span>
-                  <span class="color-high"> {{ overallImprovingText }}</span>
-                </div>
-              </div>
-              <div class="flex justify-start items-center">
-                <div class="b-overall__title">Equity:</div>
-                <div class="b-overall__title--tier">
-                  <span
-                    :class="[`color-${overallEquitableTier.toLowerCase()}`]"
-                  >
-                    {{ overallEquitableTier }}
-                  </span>
-                  <span class="color-high">
-                    {{ overallImprovingEquitableText }}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="pl-4">
-              <div class="flex justify-start items-center">
-                <div class="b-overall__row-label">Overall Performance</div>
-                <div class="b-overall__value">
-                  At or Above Target for
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountAtAboveTarget }}
-                  </span>
-                  of
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEligible }}
-                  </span>
-                  (<span class="b-overall__value--numeric"
-                    >{{ overallPctAtAboveTarget }} </span
-                  >)
-                </div>
-              </div>
-              <div class="flex justify-start items-center">
-                <div class="b-overall__row-label">
-                  Year-Over-Year Performance
-                </div>
-                <div class="b-overall__value">
-                  Improving for
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountImproving }}
-                  </span>
-                  of
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEligibleImproving }}
-                  </span>
-                  (<span class="b-overall__value--numeric"
-                    >{{ overallPctImproving }} </span
-                  >)
-                </div>
-              </div>
-              <div class="flex justify-start items-center">
-                <div class="b-overall__row-label">
-                  Historically Underserved Student Performance
-                </div>
-                <div class="b-overall__value">
-                  At or Above Target for
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEquitable }}
-                  </span>
-                  of
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEligibleEquitable }}
-                  </span>
-                  (<span class="b-overall__value--numeric"
-                    >{{ overallPctEquitable }} </span
-                  >)
-                </div>
-              </div>
-              <div class="flex justify-start items-start">
-                <div class="b-overall__row-label">
-                  Historically Underserved Student Improvement
-                </div>
-                <div class="b-overall__value">
-                  Improving for
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountImprovingEquitable }}
-                  </span>
-                  of
-                  <span class="b-overall__value--numeric"
-                    >{{ overallCountEligibleImprovingEquitable }}
-                  </span>
-                  (<span class="b-overall__value--numeric"
-                    >{{ overallPctImprovingEquitable }} </span
-                  >)
-                </div>
-              </div>
-            </div>
-            <div class="b-cmetric-title">Performance by Metric</div>
-            <div class="w-full flex flex-wrap">
-              <div
-                v-for="metric in coverMetrics"
-                :key="metric.id"
-                class="b-cmetric w-1/2 flex flex-col justify-between"
-              >
-                <div class="b-cmetric__label">
-                  {{ metric.label || metricLabel(metric.id) }}
-                </div>
-                <div class="flex">
-                  <div
-                    class="w-1/2 flex flex-col justify-around"
-                    :class="['color-tier-' + tier(metric.id, 'number')]"
-                  >
-                    <div class="b-cmetric__score h-1/2">
-                      {{ score(metric.id) }}
-                    </div>
-                    <div class="b-cmetric__tier h-1/2">
-                      ({{ tier(metric.id) }})
-                    </div>
-                  </div>
-                  <div class="w-1/2 flex flex-col justify-around">
-                    <div class="b-cmetric__other h-1/2">
-                      {{ yoy(metric.id) }} from {{ $store.getters.sy_p }}
-                    </div>
-                    <div class="b-cmetric__other h-1/2">
-                      {{ distance(metric.id) }}
-                      from target
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="b-sep" />
-          <div class="b-cmetric">
+          <div class="b-metric">
             <div v-if="!isHS">
               <div class="b-cmetric-title">
                 Performance Against District Goals
@@ -316,7 +171,7 @@
                   monitored by the Board of Education
                 </div>
                 <div class="w-1/5 b-cmetric-subtitle">
-                  Change from Prior Year
+                  Change Over Three Years
                 </div>
               </div>
               <div
@@ -331,10 +186,10 @@
                   <div class="w-64">
                     <div
                       class="b-cmetric__value b-cmetric__value--highlight"
-                      :class="['color-tier-' + tier(metric.id, 'number')]"
+                      :class="['color-rating-' + rating(metric.id, 'number')]"
                     >
                       {{ score(metric.id) }}
-                      ({{ tier(metric.id) }})
+                      ({{ rating(metric.id) }})
                     </div>
                   </div>
                   <QdtComponent
@@ -348,20 +203,77 @@
                     class="w-1/2"
                   />
                   <div class="w-1/5 b-cmetric__value">
-                    {{ yoy(metric.id) }}
+                    {{ trend(metric.id) }}
                   </div>
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="mt-2 b-sep b-sep--text-inside flex justify-start">
             <span class="mx-4">Metric Tier Color Key:</span>
             <div class="flex justify-start w-2/3">
-              <span class="color-tier-4 mx-2"> Above Target </span>
-              <span class="color-tier-3 mx-2"> At Target </span>
-              <span class="color-tier-2 mx-2"> Approaching Target </span>
-              <span class="color-tier-1 mx-2"> Not Meeting Target </span>
+              <span class="color-rating-1 mx-2"> Not Meeting Target </span>
+              <span class="color-rating-2 mx-2"> Approaching Target </span>
+              <span class="color-rating-3 mx-2"> At Target </span>
+              <span class="color-rating-4 mx-2"> Above Target </span>
             </div>
+          </div>
+        </div>
+        <div class="page">
+          <div class="b-sep" />
+          <div class="b-cmetric-table">
+            <div class="b-cmetric-table__title">
+              Performance Against Guardrail Indicators
+            </div>
+            <div class="b-cmetric-table__subtitle">
+              Guardrails are conditions the District must ensure in order for
+              the District goals to be met.
+            </div>
+            <div class="flex">
+              <div class="w-2/3">&nbsp;</div>
+              <div class="w-1/3 flex">
+                <div class="w-1/2 b-cmetric-table__header">Score</div>
+                <div class="w-1/2 b-cmetric-table__header">
+                  Change Over Three Years
+                </div>
+              </div>
+            </div>
+            <div v-for="(guardrail, grIndex) in coverGuardrails" :key="grIndex">
+              <div
+                class="b-cmetric-table__row-label b-cmetric-table__row-label--highlight"
+              >
+                {{ guardrail.title }}
+              </div>
+              <div
+                v-for="(metric, mIndex) in guardrail.metrics"
+                :key="mIndex"
+                class="flex"
+              >
+                <div
+                  class="b-cmetric-table__row-label b-cmetric-table__row-label--grouped w-2/3"
+                >
+                  {{ metric.label }}
+                </div>
+                <div class="w-1/3 flex">
+                  <div class="w-1/2 b-cmetric-table__value">
+                    <span v-if="!metric.isBoolean">
+                      {{ score(metric.id) }}
+                    </span>
+                    <div v-else class="b-cmetric-table__value--icon">
+                      <unicon
+                        v-if="score(metric.id, 'number')"
+                        name="check-square"
+                      />
+                      <unicon v-else name="square-full" />
+                    </div>
+                  </div>
+                  <div class="w-1/2 b-cmetric-table__value">
+                    {{ !metric.isBoolean ? trend(metric.id) : '' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="b-sep" />
           </div>
         </div>
       </div>
@@ -416,18 +328,18 @@
                         Minimum Score for Tier
                       </div>
                       <div
-                        v-if="isFinite(aboveTarget(metric.id, 'number'))"
+                        v-if="isFinite(approaching(metric.id, 'number'))"
                         class="w-full flex justify-between"
                       >
-                        <div class="b-metric-targets__label color-tier-4">
-                          Above Target
+                        <div class="b-metric-targets__label color-rating-2">
+                          Approaching Target
                         </div>
                         <div class="b-metric-targets__value">
-                          {{ aboveTarget(metric.id) }}
+                          {{ approaching(metric.id) }}
                         </div>
                       </div>
                       <div class="w-full flex justify-between">
-                        <div class="b-metric-targets__label color-tier-3">
+                        <div class="b-metric-targets__label color-rating-3">
                           At Target
                         </div>
                         <div class="b-metric-targets__value">
@@ -435,23 +347,23 @@
                         </div>
                       </div>
                       <div
-                        v-if="isFinite(approaching(metric.id, 'number'))"
+                        v-if="isFinite(aboveTarget(metric.id, 'number'))"
                         class="w-full flex justify-between"
                       >
-                        <div class="b-metric-targets__label color-tier-2">
-                          Approaching Target
+                        <div class="b-metric-targets__label color-rating-4">
+                          Above Target
                         </div>
                         <div class="b-metric-targets__value">
-                          {{ approaching(metric.id) }}
+                          {{ aboveTarget(metric.id) }}
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div>
+                  <div class="ml-12">
                     <table class="table-fixed b-metric-table">
                       <thead>
                         <tr class="b-metric-table__header">
-                          <th class="b-metric-table__row-label">&nbsp;</th>
+                          <th class="w-48">&nbsp;</th>
                           <th>Score</th>
                           <th>Change from Prior Year</th>
                           <th>Distance from Target</th>
@@ -465,11 +377,10 @@
                         >
                           <td
                             class="b-metric-table__row-label"
-                            :class="
-                              group.key === 'all'
-                                ? 'b-metric-table__row-label--highlight'
-                                : 'b-metric-table__row-label--subgroup'
-                            "
+                            :class="{
+                              'b-metric-table__row-label--highlight':
+                                group.key === 'all',
+                            }"
                           >
                             {{ group.label }}
                           </td>
@@ -498,31 +409,19 @@
                                 group.key === 'all',
                             }"
                           >
-                            {{
-                              !isInformational(
-                                getMetricIdByGroup(metric, group)
-                              )
-                                ? distance(getMetricIdByGroup(metric, group))
-                                : ''
-                            }}
+                            {{ distance(getMetricIdByGroup(metric, group)) }}
                           </td>
                           <td
-                            class="b-metric-table__value b-metric-table__value--tier"
+                            class="b-metric-table__value b-metric-table__value--rating"
                             :class="[
-                              'color-tier-' +
-                                tier(
+                              'color-rating-' +
+                                rating(
                                   getMetricIdByGroup(metric, group),
                                   'number'
                                 ),
                             ]"
                           >
-                            {{
-                              !isInformational(
-                                getMetricIdByGroup(metric, group)
-                              )
-                                ? tier(getMetricIdByGroup(metric, group))
-                                : ''
-                            }}
+                            {{ rating(getMetricIdByGroup(metric, group)) }}
                           </td>
                         </tr>
                       </tbody>
@@ -531,15 +430,13 @@
                   <div class="b-metric-hr">&nbsp;</div>
                 </div>
                 <!-- Secondary metrics do not have bulletchart and the targets are not displayed,
-                      may or may not have distance from target and tier (informational or not) -->
+                      may or may not have distance from target and rating (informational or not) -->
                 <div v-else>
                   <table class="table-fixed b-smetric-table">
                     <!-- only put a table head if this is not the first informational metric in a row -->
-                    <thead v-if="mIndex === 0 || metric.showHeader">
+                    <thead v-if="mIndex === 0">
                       <tr>
-                        <th class="b-smetric-table__header-label w-48">
-                          &nbsp;
-                        </th>
+                        <th class="b-smetric-table__header-label">&nbsp;</th>
                         <th class="b-smetric-table__header-value">
                           {{
                             metric.parallel_metrics
@@ -639,7 +536,7 @@
                           :class="[
                             metric.parallel_metrics
                               ? ''
-                              : `color-tier-${tier(
+                              : `color-rating-${rating(
                                   getMetricIdByGroup(metric, group),
                                   'number'
                                 )}`,
@@ -653,7 +550,7 @@
                               : !isInformational(
                                   getMetricIdByGroup(metric, group)
                                 )
-                              ? tier(getMetricIdByGroup(metric, group))
+                              ? rating(getMetricIdByGroup(metric, group))
                               : ''
                           }}
                         </td>
@@ -671,18 +568,13 @@
 </template>
 
 <script>
-/**
- * TODO: pull gray boxes out to the left, indent breakouts
- * try stacked bar for ethnicity
- */
 import QdtComponent from '~sdp-components/Qdt/QdtComponent'
+import schoolReportMetricDef from '~/definitions/schoolReportMetrics'
 import ScrollSpyNav from '~sdp-components/Navigation/ScrollSpyNav'
 import SelectionsMixin from '~/mixins/SelectionsMixin'
 import ButtonGroup from '~sdp-components/PageElements/ButtonGroup'
-import schoolReportMetricDef from '~/definitions/schoolReportMetrics'
 
 export default {
-  name: 'SchoolReport',
   components: {
     ScrollSpyNav,
     QdtComponent,
@@ -692,7 +584,7 @@ export default {
   data() {
     return {
       print: false,
-      schoolReportKey: '7400|K8',
+      schoolReportKey: '1111|K8',
       // for loading data
       schoolReportSessionObject: null,
       schoolReportValues: null,
@@ -781,217 +673,113 @@ export default {
       return 'Yes'
     },
 
-    // overall values from the store
-    overallPctAtAboveTarget() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Metrics At Target (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallTier() {
-      const val = this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Metrics At Target (Current)',
-        this.schoolReportKey
-      ).number
-      if (Math.round(val * 100) > 80) {
-        return 'High'
-      } else if (Math.round(val * 100) >= 50) {
-        return 'Medium'
-      } else if (val >= 0) {
-        return 'Low'
-      } else {
-        return 'N/A'
-      }
-    },
-
-    overallCountAtAboveTarget() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Metrics At Target (Current)',
-        this.schoolReportKey
-      ).text
-    },
-
-    overallCountEligible() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Metrics Eligible (Current)',
-        this.schoolReportKey
-      ).text
-    },
-
-    overallPctImproving() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Metrics Improving (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallImprovingText() {
-      const val = this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Metrics Improving (Current)',
-        this.schoolReportKey
-      ).number
-      if (Math.round(val * 100) > 50) {
-        return '+ Improving'
-      } else {
-        return ''
-      }
-    },
-    overallCountImproving() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Metrics Improving (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallCountEligibleImproving() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Metrics Improving Eligible (Current)',
-        this.schoolReportKey
-      ).text
-    },
-
-    overallPctEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Equity Metrics At Target (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallEquitableTier() {
-      const val = this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Equity Metrics At Target (Current)',
-        this.schoolReportKey
-      ).number
-      if (Math.round(val * 100) > 80) {
-        return 'High'
-      } else if (Math.round(val * 100) >= 50) {
-        return 'Medium'
-      } else if (val >= 0) {
-        return 'Low'
-      } else {
-        return 'N/A'
-      }
-    },
-    overallCountEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics At Target (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallCountEligibleEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics Eligible (Current)',
-        this.schoolReportKey
-      ).text
-    },
-
-    overallPctImprovingEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Equity Metrics Improving (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallImprovingEquitableText() {
-      const val = this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '% Equity Metrics Improving (Current)',
-        this.schoolReportKey
-      ).number
-      if (Math.round(val * 100) > 50) {
-        return '+ Improving Equity'
-      } else {
-        return ''
-      }
-    },
-
-    overallCountImprovingEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics Improving (Current)',
-        this.schoolReportKey
-      ).text
-    },
-    overallCountEligibleImprovingEquitable() {
-      return this.$store.getters['schools/getFieldBySchoolReportKey'](
-        '# Equity Metrics Improving Eligible (Current)',
-        this.schoolReportKey
-      ).text
-    },
-
     /**
      * The studentGroups are the list of suffixes and label assicated with student groups that are part of the equity breakouts.
-     * For example black is used to append KEYSTONE_PROF (i.e., KEYSTONE_PROF_black) to find the % of Black students proficient.
+     * For example black is used to append keystone_prof_all (i.e., keystone_prof_all_black) to find the % of Black students proficient.
      */
     studentGroups() {
       return [
-        { key: 'BLACK', label: 'Black/African American' },
-        { key: 'HISP', label: 'Hispanic/Latino' },
-        { key: 'WHITE', label: 'White' },
-        { key: 'ASIAN', label: 'Asian' },
-        { key: 'MULTI', label: 'Multi Racial/Other' },
-        { key: 'AIAN', label: 'American Indian/Alaskan Native' },
-        { key: 'NHPI', label: 'Pacific Islander' },
-        { key: 'ECDIS', label: 'Economically Disadvantaged' },
-        { key: 'SPED', label: 'Special Education' },
-        { key: 'EL', label: 'English Learner' },
+        { key: 'black', label: 'Black/African American' },
+        { key: 'hispanic', label: 'Hispanic/Latino' },
+        { key: 'white', label: 'White' },
+        { key: 'asian', label: 'Asian' },
+        { key: 'multirace', label: 'Multi Racial/Other' },
+        { key: 'native', label: 'American Indian/Alaskan Native' },
+        { key: 'pacific', label: 'Pacific Islander' },
+        { key: 'ecdis', label: 'Economically Disadvantaged' },
+        { key: 'sped', label: 'SPED' },
+        { key: 'el', label: 'English Learner' },
       ]
     },
-    coverMetrics() {
-      return this.isHS
-        ? [
-            {
-              id: 'KEYSTONE_PROF',
-              label: 'Keystone Proficiency (all 3 tests)',
-            },
-            { id: 'KEYSTONE_ELA_AGI', label: 'Keystone ELA Growth' },
-            { id: 'KEYSTONE_ALG_AGI', label: 'Keystone Algebra Growth' },
-            { id: 'KEYSTONE_BIO_AGI', label: 'Keystone Bio Growth' },
-            { id: 'GRAD_COHORT4', label: 'Graduated on Time' },
-            { id: 'NOCTI_MET', label: 'NOCTI' },
-            { id: 'GROWTH_MET_EL', label: 'English Learner Growth' },
-            { id: 'ATTENDANCE_90', label: '90% Attendance' },
-            { id: 'OSS', label: 'Zero Suspensions' },
-            { id: 'CLIMATE_SCORE', label: 'Climate Suvey' },
-            { id: 'INSTRUCTION_SCORE', label: 'Instruction Survey' },
-            {
-              id: 'RELATIONSHIP_SCORE',
-              label: 'Parent School Relationship Survey',
-            },
-          ]
-        : [
-            { id: 'PSSA_ELA_PROF', label: 'PSSA ELA Proficiency (Grades 3-8)' },
-            {
-              id: 'PSSA_ELA_PROF_GRADE3',
-              label: 'PSSA ELA Proficiency (Grade 3)',
-            },
-            { id: 'PSSA_ELA_AGI', label: 'PSSA ELA Growth' },
-            { id: 'PSSA_MATH_PROF', label: 'PSSA Math Proficiency' },
-            { id: 'PSSA_MATH_AGI', label: 'PSSA Math Growth' },
-            { id: 'GROWTH_MET_EL', label: 'English Learner Growth' },
-            { id: 'ATTENDANCE_90', label: '90% Attendance' },
-            { id: 'OSS', label: 'Zero Suspensions' },
-            { id: 'CLIMATE_SCORE', label: 'Climate Suvey' },
-            { id: 'INSTRUCTION_SCORE', label: 'Instruction Survey' },
-            {
-              id: 'RELATIONSHIP_SCORE',
-              label: 'Parent School Relationship Survey',
-            },
-          ]
+    coverBulletMetrics() {
+      return [
+        {
+          id: 'pssa_ela_prof',
+          label: 'PSSA ELA: % of Students Proficient or Advanced, Grades 3-8',
+          bulletChartId: 'VdzxMm',
+        },
+        {
+          id: 'pssa_ela_prof_grade3',
+          label: 'PSSA ELA: % of Students Proficient or Advanced, Grade 3',
+          bulletChartId: 'StEhCqp',
+        },
+        {
+          id: 'pssa_math_prof',
+          label: 'PSSA Math: % of Students Proficient or Advanced, Grades 3-8',
+          bulletChartId: 'ZTfBeS',
+        },
+      ]
     },
-    // coverBulletMetrics() {
-    //   return [
-    //     {
-    //       id: 'PSSA_ELA_PROF',
-    //       label: 'PSSA ELA: % of Students Proficient or Advanced, Grades 3-8',
-    //       bulletChartId: 'VdzxMm',
-    //     },
-    //     {
-    //       id: 'PSSA_ELA_PROF_GRADE3',
-    //       label: 'PSSA ELA: % of Students Proficient or Advanced, Grade 3',
-    //       bulletChartId: 'StEhCqp',
-    //     },
-    //     {
-    //       id: 'PSSA_MATH_PROF',
-    //       label: 'PSSA Math: % of Students Proficient or Advanced, Grades 3-8',
-    //       bulletChartId: 'ZTfBeS',
-    //     },
-    //   ]
-    // },
+    coverGuardrails() {
+      return [
+        {
+          title: 'Guardrail 1: Welcoming & Supportive Schools',
+          metrics: [
+            {
+              id: 'climate_score',
+              label: 'School Climate Score',
+            },
+            {
+              id: 'instruction_score',
+              label: 'School Instruction Score',
+            },
+            {
+              id: 'lead_safe',
+              isBoolean: true,
+              label: 'Lead Safe',
+            },
+            {
+              id: 'asbestos_safe',
+              isBoolean: true,
+              label: 'Asbestos Safe',
+            },
+            {
+              id: 'fte_behavioralsupports_sufficient_yn',
+              isBoolean: true,
+              label: 'At Least 2 Behavioral/Mental Supports Per 500 Students',
+            },
+          ],
+        },
+        {
+          title: 'Guardrail 2: Enriching & Well-Rounded School Experiences',
+          metrics: [
+            {
+              id: 'arts_participation',
+              label: '% of Students Enrolled in Visual/Performing Arts',
+            },
+          ],
+        },
+        {
+          title: 'Guardrail 3: Partnering with Parents & Family Members',
+          metrics: [
+            {
+              id: 'relationship_score',
+              label: 'School Relationship Score',
+            },
+            {
+              id: 'sac_meets_regularly_yn',
+              isBoolean: true,
+              label: 'SAC Meets at Least 3 Times Per Year',
+            },
+          ],
+        },
+        {
+          title: 'Guardrail 4: Addressing Racist Practices',
+          metrics: [
+            {
+              id: 'special_admit_qual_minority',
+              label:
+                '% of Black/African American and Hispanic/Latinx Students Qualified to Attend Special Admission High Schools',
+            },
+            {
+              id: 'suspensions_minority',
+              label:
+                '% of Suspensions Received by Black/African American Students',
+            },
+          ],
+        },
+      ]
+    },
     /**
      * The domain facts list the goals (split into pages) associated with each domain and provides the information
      * needed to display associated metrics and visualizations
@@ -1009,19 +797,18 @@ export default {
                   'Goal 1: The percentage of students in grades 3-8 who are proficient on the state ELA assessment will grow from 35.7% in August 2019 to 65.0% by August 2026.',
                 metrics: [
                   {
-                    id: 'PSSA_ELA_PROF',
+                    id: 'pssa_ela_prof',
                     bulletChartId: 'CWDMjn',
                   },
                   {
-                    id: 'PSSA_ELA_AGI',
+                    id: 'pssa_ela_agi',
                     bulletChartId: 'ynu',
                   },
                   {
-                    id: 'WITHIN_ELA_MET_38',
-                    showHeader: true,
+                    id: 'within_ela_met',
                   },
                   {
-                    id: 'WITHIN_ELA_PARTICIPATION_38',
+                    id: 'within_ela_participation',
                   },
                 ],
               },
@@ -1034,15 +821,14 @@ export default {
                   'Goal 2: The percentage of 3rd grade students who are proficient on the state ELA assessment will grow from 32.5% in August 2019 to 62.0% by August 2026.',
                 metrics: [
                   {
-                    id: 'PSSA_ELA_PROF_GRADE3',
+                    id: 'pssa_ela_prof_grade3',
                     bulletChartId: 'BRwxpma',
                   },
                   {
-                    id: 'WITHIN_ELA_MET_K3',
-                    showHeader: true,
+                    id: 'within_ela_met',
                   },
                   {
-                    id: 'WITHIN_ELA_PARTICIPATION_K3',
+                    id: 'within_ela_participation',
                   },
                 ],
               },
@@ -1050,16 +836,16 @@ export default {
                 title: 'Other Key Indicators',
                 metrics: [
                   {
-                    id: 'GROWTH_MET_EL',
+                    id: 'growth_met_el',
                     submetrics: [
                       {
-                        id: 'GROWTH_MET_EL_5099',
+                        id: 'growth_met_el_50_99',
                       },
                       {
-                        id: 'GROWTH_MET_EL_049',
+                        id: 'growth_met_el_0_49',
                       },
                       {
-                        id: 'GROWTH_MET_EL_LT0',
+                        id: 'growth_met_el_0',
                       },
                     ],
                   },
@@ -1081,23 +867,18 @@ export default {
                   'Goal 3: The percentage of students in grades 3-8 who are proficient on the state Math assessment will grow from 21.5% in August 2019 to 52.0% by August 2026.',
                 metrics: [
                   {
-                    id: 'PSSA_MATH_PROF',
+                    id: 'pssa_math_prof',
                     bulletChartId: '197a4edd-23f5-4114-ba97-09fa6356725e',
                   },
                   {
-                    id: 'PSSA_MATH_AGI',
+                    id: 'pssa_math_agi',
                     bulletChartId: 'f537d760-30e8-4a9d-818b-cc02026d3f8e',
                   },
                   {
-                    id: this.isHS
-                      ? 'WITHIN_MATH_MET_911'
-                      : 'WITHIN_MATH_MET_38',
-                    showHeader: true,
+                    id: 'within_math_met',
                   },
                   {
-                    id: this.isHS
-                      ? 'WITHIN_MATH_PARTICIPATION_911'
-                      : 'WITHIN_MATH_PARTICIPATION_38',
+                    id: 'within_math_participation',
                   },
                 ],
               },
@@ -1106,13 +887,13 @@ export default {
                 grouped: true,
                 metrics: [
                   {
-                    id: 'PSSA_SCI_PROF',
+                    id: 'pssa_science_prof',
                   },
                   {
-                    id: 'PSSA_SCIENCE_AGI_GRADE4',
+                    id: 'pssa_science_agi_grade4',
                   },
                   {
-                    id: 'PSSA_SCIENCE_AGI_GRADE8',
+                    id: 'pssa_science_agi_grade8',
                   },
                 ],
               },
@@ -1131,33 +912,33 @@ export default {
                 title: 'Guardrail 1: Welcoming and Supportive Schools',
                 metrics: [
                   {
-                    id: 'CLIMATE_SCORE',
+                    id: 'climate_score',
                     bulletChartId: '377c19df-f6c4-48db-b5bb-21801c9426b7',
                     submetrics: [
                       {
-                        id: 'CLIMATE_RATING_STUDENT',
+                        id: 'climate_rating_student',
                       },
                       {
-                        id: 'CLIMATE_RATING_PARENT',
+                        id: 'climate_rating_parent',
                       },
                       {
-                        id: 'CLIMATE_RATING_TEACHER',
+                        id: 'climate_rating_teacher',
                       },
                     ],
                   },
 
                   {
-                    id: 'INSTRUCTION_SCORE',
+                    id: 'instruction_score',
                     bulletChartId: 'eJaHqv',
                     submetrics: [
                       {
-                        id: 'INSTRUCTION_RATING_STUDENT',
+                        id: 'instruction_rating_student',
                       },
                       {
-                        id: 'INSTRUCTION_RATING_PARENT',
+                        id: 'instruction_rating_parent',
                       },
                       {
-                        id: 'INSTRUCTION_RATING_TEACHER',
+                        id: 'instruction_rating_teacher',
                       },
                     ],
                   },
@@ -1166,19 +947,19 @@ export default {
               {
                 metrics: [
                   {
-                    id: 'LEAD_SAFE',
+                    id: 'lead_safe',
                   },
                   {
-                    id: 'ASBESTOS_SAFE',
+                    id: 'asbestos_safe',
                   },
                   {
-                    id: 'FTE_BEHAVIORALSUPPORTS_SUFFICIENT_YN',
+                    id: 'fte_behavioralsupports_sufficient_yn',
                     submetrics: [
                       {
-                        id: 'ENR_OCT1',
+                        id: 'enr_oct1',
                       },
                       {
-                        id: 'FTE_BEHAVIORALSUPPORTS_NUMBER',
+                        id: 'fte_behavioralsupports_number',
                       },
                     ],
                   },
@@ -1193,7 +974,7 @@ export default {
                   'Guardrail 2: Enriching & Well-Rounded School Experiences',
                 metrics: [
                   {
-                    id: 'ARTS_PARTICIPATION',
+                    id: 'arts_participation',
                   },
                 ],
               },
@@ -1202,18 +983,28 @@ export default {
                   'Guardrail 3: Partnering with Parents and Family Members',
                 metrics: [
                   {
-                    id: 'RELATIONSHIP_SCORE',
+                    id: 'relationship_score',
                     bulletChartId: 'pewShg',
-                  },
-                  {
-                    id: 'SAC_MEETS_REGULARLY_YN',
-                    showHeader: true,
                     submetrics: [
                       {
-                        id: 'SAC_EXISTS',
+                        id: 'relationship_score_student',
                       },
                       {
-                        id: 'SAC_MEETING',
+                        id: 'relationship_score_parent',
+                      },
+                      {
+                        id: 'relationship_score_teacher',
+                      },
+                    ],
+                  },
+                  {
+                    id: 'sac_meets_regularly_yn',
+                    submetrics: [
+                      {
+                        id: 'sac_exists',
+                      },
+                      {
+                        id: 'sac_meeting',
                       },
                     ],
                   },
@@ -1228,18 +1019,18 @@ export default {
                 metrics: [
                   {
                     skip: this.isHS,
-                    id: 'SPECIAL_ADMIT_QUAL',
-                    parallel_metrics: [], // use this to hide yoy, distance, tier_label
+                    id: 'special_admit_qual',
+                    parallel_metrics: [], // use this to hide yoy, distance, rating
                   },
                 ],
               },
               {
                 metrics: [
                   {
-                    id: 'ENR',
+                    id: 'enr_pct',
                     parallel_metrics: [
                       {
-                        id: 'SUSPENSIONS',
+                        id: 'suspensions',
                       },
                     ],
                   },
@@ -1261,36 +1052,32 @@ export default {
                   'Goal 4: The percentage of students who are proficient on all three state high school assessments (Algebra, Literature, and Biology) by the end of their 11th grade year will grow from 22.2% in August 2019 to 52.0% by August 2026.',
                 metrics: [
                   {
-                    id: 'KEYSTONE_PROF',
+                    id: 'keystone_prof_all',
                     bulletChartId: 'YuaPhz',
                   },
                   {
-                    id: 'KEYSTONE_ALG_AGI',
+                    id: 'keystone_alg_agi',
                     bulletChartId: 'NgMmy',
                   },
                   {
-                    id: 'KEYSTONE_BIO_AGI',
+                    id: 'keystone_bio_agi',
                     bulletChartId: 'TtPaxh',
                   },
                   {
-                    id: 'KEYSTONE_ELA_AGI',
+                    id: 'keystone_ela_agi',
                     bulletChartId: 'UfFgU',
                   },
                   {
-                    id: 'WITHIN_ELA_MET_911',
+                    id: 'within_ela_met',
                   },
                   {
-                    id: 'WITHIN_ELA_PARTICIPATION_911',
+                    id: 'within_ela_participation',
                   },
                   {
-                    id: this.isHS
-                      ? 'WITHIN_MATH_MET_911'
-                      : 'WITHIN_MATH_MET_38',
+                    id: 'within_math_met',
                   },
                   {
-                    id: this.isHS
-                      ? 'WITHIN_MATH_PARTICIPATION_911'
-                      : 'WITHIN_MATH_PARTICIPATION_38',
+                    id: 'within_math_participation',
                   },
                 ],
               },
@@ -1303,25 +1090,25 @@ export default {
                   'Goal 5: The percentage of Career and Technical Education (CTE) students who pass an industry standards-based competency assessment by the end of their 12th grade year will grow from 49.9% in August 2019 to 80.0% in August 2026.',
                 metrics: [
                   {
-                    id: 'NOCTI_MET',
+                    id: 'nocti_met',
                     bulletChartId: 'JdZgC',
                     submetrics: [
                       {
-                        id: 'CTE_COURSEWORK_LEVEL2_PASSING',
+                        id: 'cte_coursework_level2_passing_grade11',
                       },
                       {
-                        id: 'CTE_COURSEWORK_LEVEL1_PASSING',
+                        id: 'cte_coursework_level1_passing_grade10',
                       },
                     ],
                   },
                   {
-                    id: 'APIB_PASSING',
+                    id: 'apib',
                     submetrics: [
                       {
-                        id: 'APIB_PARTICIPATION',
+                        id: 'apib_participation_grade12',
                       },
                       {
-                        id: 'APIB_NOTPARTICIPATING',
+                        id: 'apib_notparticipating_grade12',
                       },
                     ],
                   },
@@ -1331,30 +1118,30 @@ export default {
                 title: 'Other Key Indicators',
                 metrics: [
                   {
-                    id: 'GROWTH_MET_EL',
+                    id: 'growth_met_el',
                     submetrics: [
                       {
-                        id: 'GROWTH_MET_EL_5099',
+                        id: 'growth_met_el_50_99',
                       },
                       {
-                        id: 'GROWTH_MET_EL_049',
+                        id: 'growth_met_el_0_49',
                       },
                       {
-                        id: 'GROWTH_MET_EL_LT0',
+                        id: 'growth_met_el_0',
                       },
                     ],
                   },
                   {
-                    id: 'ON_TRACK',
+                    id: 'on_track_grade9',
                   },
                   {
-                    id: 'FAFSA',
+                    id: 'fafsa_grade12',
                   },
                   {
-                    id: 'GRAD_COHORT4',
+                    id: 'grad_cohort4',
                   },
                   {
-                    id: 'FFM',
+                    id: 'ffm',
                   },
                 ],
               },
@@ -1363,7 +1150,7 @@ export default {
         ],
       }
       if (this.isHS) {
-        return [cc, climate]
+        return [climate, cc]
       } else {
         return [ela, math, climate]
       }
@@ -1374,15 +1161,10 @@ export default {
   },
   methods: {
     async loadSessionObject() {
-      // make selection in qlik app then load values
-      await this.$qlik.selectFieldValues('SchoolReportKey', [
-        { text: this.schoolReportKey },
-      ])
-
+      // for loading data
       this.schoolReportSessionObject = await this.$qlik.generateHypercubeObjectFromDef(
         schoolReportMetricDef(this.schoolReportKey)
       )
-
       this.schoolReportSessionObject.addListener('changed', this.update)
       this.update()
     },
@@ -1391,7 +1173,6 @@ export default {
         this.schoolReportValues = await this.$qlik.getValuesFromHypercubeObject(
           this.schoolReportSessionObject
         )
-        this.debugMetric('SUSPENSIONS_BLACK')
       }
     },
 
@@ -1479,21 +1260,6 @@ export default {
         return -1
       }
     },
-    // will write to console all values for metric
-    debugMetric(metricId) {
-      const index = this.metricIndex(metricId)
-      // console.log('debug', metricId, index)
-      if (index >= 0) {
-        const obj = {}
-        Object.keys(this.schoolReportValues).forEach((key) => {
-          obj[key] = this.schoolReportValues[key][index].text
-        })
-        // console.log(obj)
-        return obj
-      } else {
-        return null
-      }
-    },
     metricLabel(metricId) {
       const index = this.metricIndex(metricId)
       return index >= 0
@@ -1513,7 +1279,7 @@ export default {
     hasSubgroups(metricId) {
       const index = this.metricIndex(metricId)
       return index >= 0
-        ? this.schoolReportValues.hasSubgroups[index].number || 0
+        ? this.schoolReportValues.subgroup[index].number || 0
         : 0
     },
     approaching(metricId, textOrNumber) {
@@ -1522,10 +1288,10 @@ export default {
         ? this.schoolReportValues.approaching[index][textOrNumber || 'text']
         : ''
     },
-    tier(metricId, textOrNumber) {
+    rating(metricId, textOrNumber) {
       const index = this.metricIndex(metricId)
       return index >= 0
-        ? this.schoolReportValues.tier[index][textOrNumber || 'text']
+        ? this.schoolReportValues.rating[index][textOrNumber || 'text']
         : ''
     },
     atTarget(metricId, textOrNumber) {
@@ -1585,29 +1351,19 @@ canvas[data-key='bar-axis'] {
   width: 12rem;
 }
 
-.color-low {
-  color: #c0504d;
-}
-.color-medium {
-  color: #00b050;
-}
-.color-high {
-  color: #0070c0;
-}
-
-.color-tier-1 {
+.color-rating-1 {
   color: #c0504d;
   font-weight: bold;
 }
-.color-tier-2 {
+.color-rating-2 {
   color: #f79646;
   font-weight: bold;
 }
-.color-tier-3 {
+.color-rating-3 {
   color: #00b050;
   font-weight: bold;
 }
-.color-tier-4 {
+.color-rating-4 {
   color: #0070c0;
   font-weight: bold;
 }
@@ -1691,49 +1447,9 @@ canvas[data-key='bar-axis'] {
 }
 
 /* metrics on the cover page 
-b-overall - is the overall rating and related metrics
-b-rollup - is data rolled up to the overall or domain level
 b-cmetric-table is simple grouped values in a table
-b-cmetric is a metric row with the bulletchart
+b-metric is a metric row with the bulletchart
 */
-.b-overall {
-  color: black;
-  font-size: 12pt;
-}
-.b-overall__title {
-  font-size: 12pt;
-  font-weight: bold;
-  margin-right: 1rem;
-}
-.b-overall__title--tier {
-  font-size: 16pt;
-  font-weight: bold;
-}
-.b-overall__row-label {
-  font-size: 12pt;
-  width: 50%;
-}
-.b-overall__value {
-  font-size: 14pt;
-}
-.b-overall__value--numeric {
-  font-weight: bold;
-}
-
-/* .b-rollup {
-  color: black;
-  font-size: 10pt;
-}
-.b-rollup__title {
-  font-size: 12pt;
-  font-weight: bold;
-  color: black;
-}
-.b-rollup__row-label {
-  font-size: 12pt;
-  font-weight: bold;
-} */
-
 .b-cmetric-title {
   font-size: 12pt;
   font-weight: bold;
@@ -1746,29 +1462,7 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-cmetric {
   color: black;
-  background-color: #f0f0f0;
-  padding: 0.5rem;
-  border: white solid 0.25rem;
 }
-.b-cmetric__label {
-  width: 100%;
-  font-size: 12pt;
-  font-weight: bold;
-  text-align: center;
-}
-.b-cmetric__score {
-  text-align: center;
-  font-weight: semibold;
-}
-.b-cmetric__tier {
-  text-align: center;
-  font-weight: bold;
-  /* border: gray solid 2px; */
-}
-.b-cmetric__other {
-  font-size: 10pt;
-}
-/* 
 .b-cmetric__label {
   width: 100%;
   font-size: 12pt;
@@ -1784,7 +1478,7 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-cmetric__value--highlight {
   font-weight: bold;
-} */
+}
 
 /* simple display and guardrail table */
 .b-cmetric-table {
@@ -1878,15 +1572,11 @@ b-cmetric is a metric row with the bulletchart
   font-size: 10pt;
   padding-left: 1rem;
   border-top: white solid 1px;
-  width: 15rem;
 }
 .b-metric-table__row-label--highlight {
   font-weight: bold;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-.b-metric-table__row-label--subgroup {
-  padding-left: 1.5rem;
 }
 .b-metric-table__value {
   text-align: center;
@@ -1901,7 +1591,7 @@ b-cmetric is a metric row with the bulletchart
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.b-metric-table__value--tier {
+.b-metric-table__value--rating {
   font-weight: bold;
 }
 
@@ -1923,7 +1613,6 @@ b-cmetric is a metric row with the bulletchart
 }
 .b-smetric-table__row-label {
   width: 15rem;
-  padding-left: 1rem;
   padding-right: 0.5rem;
   padding-bottom: 0.5rem;
   border-top: #cccccc solid 0.5px;

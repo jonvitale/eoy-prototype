@@ -4,7 +4,7 @@ export default {
     qDimensions: [
       {
         qDef: {
-          qFieldDefs: ['schoolyear'],
+          qFieldDefs: ['year_academic'],
           qFieldLabels: ['SchoolYear'],
         },
         qNullSuppression: true,

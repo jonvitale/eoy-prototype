@@ -37,7 +37,7 @@ export const getters = {
     yearEndToSchoolYear(yearsToYearEndPrevious2(state.years)),
   sy_c: (state) => yearEndToSY(yearsToYearEndCurrent(state.years)),
   sy_p: (state) => yearEndToSY(yearsToYearEndPrevious(state.years)),
-  sy_pp: (state) => yearEndToSY(yearsToYearEndPrevious2(state.years)),
+  sy_p2: (state) => yearEndToSY(yearsToYearEndPrevious2(state.years)),
 
   // of all possible years
   yearend_c_all: (state) => yearsToYearEndCurrent(state.years_all),
@@ -51,7 +51,7 @@ export const getters = {
     yearEndToSchoolYear(yearsToYearEndPrevious2(state.years_all)),
   sy_c_all: (state) => yearEndToSY(yearsToYearEndCurrent(state.years_all)),
   sy_p_all: (state) => yearEndToSY(yearsToYearEndPrevious(state.years_all)),
-  sy_pp_all: (state) => yearEndToSY(yearsToYearEndPrevious2(state.years_all)),
+  sy_p2_all: (state) => yearEndToSY(yearsToYearEndPrevious2(state.years_all)),
 }
 
 export const mutations = {
