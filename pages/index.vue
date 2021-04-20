@@ -944,6 +944,7 @@ export default {
             { id: 'GRAD_COHORT4', label: 'Graduated on Time' },
             { id: 'NOCTI_MET', label: 'NOCTI' },
             { id: 'GROWTH_MET_EL', label: 'English Learner Growth' },
+            { id: 'ATTENDANCE_95', label: '95% Attendance' },
             { id: 'ATTENDANCE_90', label: '90% Attendance' },
             { id: 'OSS', label: 'Zero Suspensions' },
             { id: 'CLIMATE_SCORE', label: 'Climate Suvey' },
@@ -963,6 +964,7 @@ export default {
             { id: 'PSSA_MATH_PROF', label: 'PSSA Math Proficiency' },
             { id: 'PSSA_MATH_AGI', label: 'PSSA Math Growth' },
             { id: 'GROWTH_MET_EL', label: 'English Learner Growth' },
+            { id: 'ATTENDANCE_95', label: '95% Attendance' },
             { id: 'ATTENDANCE_90', label: '90% Attendance' },
             { id: 'OSS', label: 'Zero Suspensions' },
             { id: 'CLIMATE_SCORE', label: 'Climate Suvey' },
@@ -1051,6 +1053,7 @@ export default {
                 metrics: [
                   {
                     id: 'GROWTH_MET_EL',
+                    bulletChartId: 'cMzaLxW',
                     submetrics: [
                       {
                         id: 'GROWTH_MET_EL_5099',
@@ -1247,6 +1250,27 @@ export default {
               },
             ],
           },
+          {
+            goals: [
+              {
+                title: 'Other Key Indicators',
+                metrics: [
+                  {
+                    id: 'ATTENDANCE_95',
+                    bulletChartId: 'GTPqYP',
+                  },
+                  {
+                    id: 'ATTENDANCE_90',
+                    bulletChartId: 'EHQPXh',
+                  },
+                  {
+                    id: 'OSS',
+                    bulletChartId: 'AbhpmM',
+                  },
+                ],
+              },
+            ],
+          },
         ],
       }
       const cc = {
@@ -1332,6 +1356,7 @@ export default {
                 metrics: [
                   {
                     id: 'GROWTH_MET_EL',
+                    bulletChartId: 'cMzaLxW',
                     submetrics: [
                       {
                         id: 'GROWTH_MET_EL_5099',
